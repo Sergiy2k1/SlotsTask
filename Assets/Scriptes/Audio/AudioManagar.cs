@@ -65,7 +65,9 @@ namespace Scriptes.Audio
 
             if (s != null)
             {
-                sfxSource.PlayOneShot(s.clip);
+                sfxSource.Stop();
+                sfxSource.clip = s.clip;
+                sfxSource.Play();
             }
         }
 

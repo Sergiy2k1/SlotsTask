@@ -8,5 +8,6 @@ namespace Scriptes.Const
         public const string CoinPush = "CoinPush";
         public const string ReelSpin = "ReelSpin";
         public const string ReelStop = "ReelStop";
+        public const string ButtonClick = "ButtonClick";
     }
 }

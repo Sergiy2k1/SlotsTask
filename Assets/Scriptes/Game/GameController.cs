@@ -18,7 +18,7 @@ namespace Scriptes.Game
 
         public void OnSpinButtonPressed()
         {
-            AudioManager.Instance.PlaySFX(AudioConst.ReelSpin);
+            AudioManager.Instance.PlaySFX(AudioConst.ButtonClick);
             gameBoard.SpinReels();
             spinButton.interactable = false;
         }

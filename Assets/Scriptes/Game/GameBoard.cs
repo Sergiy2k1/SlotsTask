@@ -36,8 +36,10 @@ namespace Scriptes.Game
 
         public void SpinReels()
         {
+            AudioManager.Instance.PlaySFX(AudioConst.ReelSpin);
             stoppedReelsCount = 0;
             spinButton.interactable = false; 
+            score.gameObject.SetActive(false); 
             
             ResetTrails();
 
@@ -48,7 +50,7 @@ namespace Scriptes.Game
             }
         }
 
-        public void ReelStopped()
+        private void ReelStopped()
         {
             stoppedReelsCount++;
 
@@ -57,11 +59,9 @@ namespace Scriptes.Game
                 DisplayWinningLines();
                 spinButton.interactable = true; 
             }
-            AudioManager.Instance.StopPlaySfx();
-            AudioManager.Instance.PlaySFX(AudioConst.ReelStop);
         }
 
-        public void DisplayWinningLines()
+        private void DisplayWinningLines()
         {
             for (int i = 0; i < 3; i++) 
             {
@@ -79,7 +79,8 @@ namespace Scriptes.Game
                 if (IsWinningLine(symbols, out startIndex, out endIndex, out lineScore))
                 {
                     Debug.Log($"Winning line at row {i + 1} with symbols: {string.Join(", ", symbols.Skip(startIndex).Take(endIndex - startIndex + 1).Select(s => s.GetId()))}");
-
+                    
+                    
                     OnWin(lineScore, i, symbols, startIndex, endIndex);
                 }
             }
@@ -87,10 +88,12 @@ namespace Scriptes.Game
 
         private void OnWin(int lineScore, int i, ISymbol[] symbols, int startIndex, int endIndex)
         {
+            
             UpdateScore(lineScore);
 
             StartCoroutine(MoveTrail(trails[i], symbols.Skip(startIndex).Take(endIndex - startIndex + 1).ToArray()));
-            AudioManager.Instance.PlaySFX(AudioConst.CoinPush);
+           
+            
         }
 
 
@@ -187,6 +190,7 @@ namespace Scriptes.Game
             }
 
             trail.transform.position = endPosition;
+            AudioManager.Instance.PlaySFX(AudioConst.CoinPush);
         }
 
         private void ResetTrails()
@@ -204,9 +208,9 @@ namespace Scriptes.Game
 
         private void UpdateScore(int additionalPoints)
         {
-            int currentScore = int.Parse(score.text);
-            currentScore += additionalPoints;
-            score.text = currentScore.ToString();
+            score.gameObject.SetActive(true);
+          
+            score.text = additionalPoints.ToString();
         }
 
         private IEnumerator StartReelWithDelay(Reel reel, float spinDuration, float delay)

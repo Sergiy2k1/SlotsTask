@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Linq;
+using Scriptes.Audio;
+using Scriptes.Const;
 using Scriptes.Symbol;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -58,6 +60,7 @@ namespace Scriptes.Reels
             IsSpinning = false;
             AlignSymbols();
             ReelsStopedEvent?.Invoke();
+            AudioManager.Instance.PlaySFX(AudioConst.ReelStop);
         }
 
         private void ShuffleSymbols()

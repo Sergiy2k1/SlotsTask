@@ -187,9 +187,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 266386082}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.11363667, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.23232347, z: 0}
+  m_LocalScale: {x: 0.7407408, y: 0.7407408, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 312743462}
@@ -197,7 +197,7 @@ Transform:
   - {fileID: 972172693}
   - {fileID: 1908201712}
   - {fileID: 2122195630}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 2058415163}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &285027021 stripped
 SpriteRenderer:
@@ -1305,12 +1305,12 @@ GameObject:
   - component: {fileID: 1166295425}
   - component: {fileID: 1166295424}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: WinMoneyText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1166295423
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1325,10 +1325,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 942517990}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 188.823, y: 129.485}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 181.76453, y: -396.32}
+  m_SizeDelta: {x: 363.529, y: 249.289}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1166295424
 MonoBehaviour:
@@ -1350,7 +1350,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0
+  m_text: 321
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1359,8 +1359,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4284612605
+  m_fontColor: {r: 0.99173504, g: 1, b: 0.3820755, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1377,14 +1377,14 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 72
+  m_fontSize: 90
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMax: 90
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -1454,6 +1454,7 @@ GameObject:
   - component: {fileID: 1220698005}
   - component: {fileID: 1220698004}
   - component: {fileID: 1220698003}
+  - component: {fileID: 1220698006}
   m_Layer: 5
   m_Name: SpinBtn
   m_TagString: Untagged
@@ -1562,6 +1563,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1220698001}
   m_CullTransparentMesh: 1
+--- !u!114 &1220698006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1220698001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df5b71e2d6db4c17ad7617a499db47fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spinButton: {fileID: 1220698003}
 --- !u!212 &1235315470 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 5887876322331751366, guid: 24563539e1f2d0e4e81fecdeab26c202, type: 3}
@@ -2845,11 +2859,12 @@ RectTransform:
   m_Children:
   - {fileID: 2075100381}
   - {fileID: 1417625645}
+  - {fileID: 266386083}
   m_Father: {fileID: 1831439600}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.2}
+  m_AnchoredPosition: {x: 0, y: -0.38}
   m_SizeDelta: {x: 8.7, y: 5.94}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!212 &2058415164
@@ -3437,6 +3452,8 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: fbab4dd44d6a3dd41b262c16fbc558bb, type: 3}
   - name: ReelStop
     clip: {fileID: 8300000, guid: 3bfc82e4e41b7cd4daee8b7dbcfeb3c6, type: 3}
+  - name: ButtonClick
+    clip: {fileID: 8300000, guid: 9aae5c7994434b543a4b0f1875fc042b, type: 3}
   musicSource: {fileID: 3264111413166916982}
   sfxSource: {fileID: 8323752003910344487}
 --- !u!1 &2219335078731232615
@@ -3518,7 +3535,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.7
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -4335,7 +4352,6 @@ SceneRoots:
   - {fileID: 519420032}
   - {fileID: 1948534189}
   - {fileID: 1960717222}
-  - {fileID: 266386083}
   - {fileID: 942517990}
   - {fileID: 1831439600}
   - {fileID: 3274882065641241491}

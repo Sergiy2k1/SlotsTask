@@ -6,33 +6,33 @@ namespace Scriptes.Symbol
     {
         [SerializeField] private SymbolData symbolData;  
 
-        private string symbolId;
-        private bool isWild;
-        private int points; // Додано поле для кількості очок
+        private string _symbolId;
+        private bool _isWild;
+        private int _points; 
 
         [SerializeField] private SpriteRenderer spriteRenderer;
         [SerializeField] private SpriteRenderer spriteBeground;
-
-        private void Awake()
-        {
-            if (spriteRenderer == null)
-            {
-                Debug.LogError("SpriteRenderer component is missing on this GameObject!");
-            }
-        }
+        
+        public string GetId() => _symbolId;
+        public bool IsWild() => _isWild;
+        public Transform GetTransform() => transform;
+        public SpriteRenderer GetSpriteRenderer() => spriteRenderer;
+        public SpriteRenderer GetSpriteBeground() => spriteBeground;
+        public int GetPoints() => _points;
 
         private void OnEnable()
         {
             InitializeFromData();
         }
 
+
         private void InitializeFromData()
         {
             if (symbolData != null)
             {
-                symbolId = symbolData.SymbolId;
-                isWild = symbolData.IsWild;
-                points = symbolData.Point;
+                _symbolId = symbolData.SymbolId;
+                _isWild = symbolData.IsWild;
+                _points = symbolData.Point;
 
                 if (spriteRenderer != null)
                 {
@@ -50,12 +50,5 @@ namespace Scriptes.Symbol
                 Debug.LogError("SymbolData is not assigned!");
             }
         }
-
-        public string GetId() => symbolId;
-        public bool IsWild() => isWild;
-        public Transform GetTransform() => transform;
-        public SpriteRenderer GetSpriteRenderer() => spriteRenderer;
-        public SpriteRenderer GetSpriteBeground() => spriteBeground;
-        public int GetPoints() => points; // Метод для отримання очок
     }
 }

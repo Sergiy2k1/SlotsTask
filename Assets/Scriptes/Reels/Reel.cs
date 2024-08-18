@@ -24,6 +24,14 @@ namespace Scriptes.Reels
             SaveInitialPositions();  
         }
 
+        private void InitializeSymbols()
+        {
+            for (int i = 0; i < _symbols.Length; i++)
+            {
+                _symbols[i].GetTransform().localPosition = new Vector3(0, symbolHeight * (9 - i), 0);
+            }
+        }
+
         public void Spin(float spinTime, int spinSpeed)
         {
             _spinSpeed = spinSpeed;
@@ -50,14 +58,6 @@ namespace Scriptes.Reels
             IsSpinning = false;
             AlignSymbols();
             ReelsStopedEvent?.Invoke();
-        }
-
-        private void InitializeSymbols()
-        {
-            for (int i = 0; i < _symbols.Length; i++)
-            {
-                _symbols[i].GetTransform().localPosition = new Vector3(0, symbolHeight * (9 - i), 0);
-            }
         }
 
         private void ShuffleSymbols()

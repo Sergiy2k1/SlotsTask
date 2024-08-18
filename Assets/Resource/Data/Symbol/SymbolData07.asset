@@ -15,5 +15,5 @@ MonoBehaviour:
   symbolId: 7
   symbolSprite: {fileID: 21300000, guid: 65935b89f00a1c545875457cacbad5c0, type: 3}
   symbolSpriteBeground: {fileID: 21300000, guid: e5caa734d5c1d4b4aabf93273bc48de8, type: 3}
-  isWild: 1
+  isWild: 0
   points: 8

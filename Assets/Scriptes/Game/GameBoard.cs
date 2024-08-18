@@ -32,22 +32,6 @@ namespace Scriptes.Game
             UnSubscribeEvents();
         }
 
-        private void UnSubscribeEvents()
-        {
-            for (int i = 0; i < reels.Length; i++)
-            {
-                reels[i].ReelsStopedEvent -= ReelStopped;
-            }
-        }
-
-        private void SubscribeEvents()
-        {
-            for (int i = 0; i < reels.Length; i++)
-            {
-                reels[i].ReelsStopedEvent += ReelStopped;
-            }
-        }
-
         public void SpinReels()
         {
             stoppedReelsCount = 0;
@@ -60,12 +44,6 @@ namespace Scriptes.Game
                 float delay = i * spinDelay;
                 StartCoroutine(StartReelWithDelay(reels[i], spinDuration, delay));
             }
-        }
-
-        private IEnumerator StartReelWithDelay(Reel reel, float spinDuration, float delay)
-        {
-            yield return new WaitForSeconds(delay); 
-            reel.Spin(spinDuration, spinSpeed);  
         }
 
         public void ReelStopped()
@@ -145,20 +123,18 @@ namespace Scriptes.Game
                 }
                 else
                 {
-                    // Перевіряємо, чи є комбінація виграшною перед скиданням
                     if (comboLength >= 3)
                     {
                         endIndex = i - 1;
                         totalPoints = symbols.Skip(startIndex).Take(endIndex - startIndex + 1).Sum(s => s.GetPoints());
                         return true;
                     }
-                    // Якщо символ не збігається і немає комбінації, починаємо нову
+
                     comboLength = 0;
                     baseSymbol = null;
                     startIndex = -1;
                     endIndex = -1;
 
-                    // Якщо поточний символ не є Wild, починаємо нову комбінацію
                     if (!symbols[i].IsWild())
                     {
                         baseSymbol = symbols[i].GetId();
@@ -166,8 +142,7 @@ namespace Scriptes.Game
                         comboLength = 1;
                     }
                 }
-
-                // Перевірка виграшу в кінці ряду
+                
                 if (i == symbols.Length - 1 && comboLength >= 3)
                 {
                     endIndex = i;
@@ -176,21 +151,13 @@ namespace Scriptes.Game
                 }
             }
 
-            return false; // Не знайдено жодної виграшної комбінації
+            return false; 
         }
-
-
-
-
-
-
 
         private IEnumerator MoveTrail(GameObject trail, ISymbol[] symbols)
         {
-            // Деактивуємо трейл, щоб почати його анімацію заново
             trail.SetActive(false);
-
-            // Активуємо фони тільки для виграшних символів
+            
             for (int i = 0; i < symbols.Length; i++)
             {
                 symbols[i].GetSpriteBeground().gameObject.SetActive(true);
@@ -217,14 +184,13 @@ namespace Scriptes.Game
 
         private void ResetTrails()
         {
-            // Деактивуємо всі трейли, щоб вони не залишали слідів з попереднього спіна
             foreach (var trail in trails)
             {
                 trail.SetActive(false);
                 TrailRenderer trailRenderer = trail.GetComponent<TrailRenderer>();
                 if (trailRenderer != null)
                 {
-                    trailRenderer.Clear(); // Очищаємо попередні сліди
+                    trailRenderer.Clear();
                 }
             }
         }
@@ -234,6 +200,28 @@ namespace Scriptes.Game
             int currentScore = int.Parse(score.text);
             currentScore += additionalPoints;
             score.text = currentScore.ToString();
+        }
+
+        private IEnumerator StartReelWithDelay(Reel reel, float spinDuration, float delay)
+        {
+            yield return new WaitForSeconds(delay); 
+            reel.Spin(spinDuration, spinSpeed);  
+        }
+
+        private void UnSubscribeEvents()
+        {
+            foreach (var t in reels)
+            {
+                t.ReelsStopedEvent -= ReelStopped;
+            }
+        }
+
+        private void SubscribeEvents()
+        {
+            foreach (var t in reels)
+            {
+                t.ReelsStopedEvent += ReelStopped;
+            }
         }
     }
 }

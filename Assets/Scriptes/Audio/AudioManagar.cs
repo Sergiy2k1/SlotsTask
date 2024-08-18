@@ -1,4 +1,5 @@
 using System;
+using Scriptes.Const;
 using UnityEngine;
 
 namespace Scriptes.Audio
@@ -36,10 +37,16 @@ namespace Scriptes.Audio
         private void OnEnable()
         {
             InitialSound();
+            PlayMusic(AudioConst.MusicMainLobby);
         }
 
         public void StopPlayMusic() => 
             musicSource.Stop();
+
+        public void StopPlaySfx()
+        {
+            sfxSource.Stop();
+        }
 
         public void PlayMusic(string name)
         {
@@ -85,6 +92,7 @@ namespace Scriptes.Audio
 
         private void SetMusicLoop(bool isLoop) => 
             musicSource.loop = isLoop;
+
 
         private void InitialSound()
         {

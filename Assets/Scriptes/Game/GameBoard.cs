@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Linq;
+using Scriptes.Audio;
+using Scriptes.Const;
 using Scriptes.Reels;
 using Scriptes.Symbol;
 using TMPro;
@@ -55,12 +57,12 @@ namespace Scriptes.Game
                 DisplayWinningLines();
                 spinButton.interactable = true; 
             }
+            AudioManager.Instance.StopPlaySfx();
+            AudioManager.Instance.PlaySFX(AudioConst.ReelStop);
         }
 
         public void DisplayWinningLines()
         {
-            int totalScore = 0; 
-
             for (int i = 0; i < 3; i++) 
             {
                 var symbols = reels.Select(reel => reel?.GetVisibleSymbols()?[i]).ToArray();
@@ -70,22 +72,27 @@ namespace Scriptes.Game
                     Debug.LogError("One or more symbols are null. Check Reel initialization.");
                     continue;
                 }
-                
+
                 Debug.Log($"Row {i + 1}: Symbols: {string.Join(", ", symbols.Select(s => s.GetId()))}");
 
                 int startIndex, endIndex, lineScore;
                 if (IsWinningLine(symbols, out startIndex, out endIndex, out lineScore))
                 {
                     Debug.Log($"Winning line at row {i + 1} with symbols: {string.Join(", ", symbols.Skip(startIndex).Take(endIndex - startIndex + 1).Select(s => s.GetId()))}");
-                    
-                    totalScore += lineScore;
-                    
-                    StartCoroutine(MoveTrail(trails[i], symbols.Skip(startIndex).Take(endIndex - startIndex + 1).ToArray()));
+
+                    OnWin(lineScore, i, symbols, startIndex, endIndex);
                 }
             }
-            
-            UpdateScore(totalScore);
         }
+
+        private void OnWin(int lineScore, int i, ISymbol[] symbols, int startIndex, int endIndex)
+        {
+            UpdateScore(lineScore);
+
+            StartCoroutine(MoveTrail(trails[i], symbols.Skip(startIndex).Take(endIndex - startIndex + 1).ToArray()));
+            AudioManager.Instance.PlaySFX(AudioConst.CoinPush);
+        }
+
 
         private bool IsWinningLine(ISymbol[] symbols, out int startIndex, out int endIndex, out int totalPoints)
         {

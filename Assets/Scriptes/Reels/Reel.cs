@@ -12,12 +12,15 @@ namespace Scriptes.Reels
     public class Reel : MonoBehaviour, IReel
     {
         public event Action ReelsStopedEvent;
+        
         private ISymbol[] _symbols;  
-        private Vector3[] _initialPositions;  
-        [SerializeField] private float _spinSpeed;
+        private Vector3[] _initialPositions;
+
+        private float _symbolHeight = 2.5f;
+        private float _spinSpeed;
+        private float _spinDuration;
+        
         public bool IsSpinning { get; private set; }
-        private float spinDuration; 
-        [SerializeField] private float symbolHeight = 2.0f;  
 
         private void Start()
         {
@@ -30,7 +33,7 @@ namespace Scriptes.Reels
         {
             for (int i = 0; i < _symbols.Length; i++)
             {
-                _symbols[i].GetTransform().localPosition = new Vector3(0, symbolHeight * (9 - i), 0);
+                _symbols[i].GetTransform().localPosition = new Vector3(0, _symbolHeight * (9 - i), 0);
             }
         }
 
@@ -38,7 +41,7 @@ namespace Scriptes.Reels
         {
             _spinSpeed = spinSpeed;
             IsSpinning = true;
-            spinDuration = spinTime;
+            _spinDuration = spinTime;
 
             for (int j = 0; j < _symbols.Length; j++)
             {
@@ -79,16 +82,16 @@ namespace Scriptes.Reels
         {
             float elapsedTime = 0f;
 
-            while (elapsedTime < spinDuration)
+            while (elapsedTime < _spinDuration)
             {
                 foreach (var symbol in _symbols)
                 {
                     var symbolTransform = symbol.GetTransform();
                     symbolTransform.localPosition -= new Vector3(0, _spinSpeed * Time.deltaTime, 0);
 
-                    if (symbolTransform.localPosition.y < -symbolHeight)
+                    if (symbolTransform.localPosition.y < -_symbolHeight)
                     {
-                        symbolTransform.localPosition += new Vector3(0, symbolHeight * _symbols.Length, 0);
+                        symbolTransform.localPosition += new Vector3(0, _symbolHeight * _symbols.Length, 0);
                     }
                 }
 

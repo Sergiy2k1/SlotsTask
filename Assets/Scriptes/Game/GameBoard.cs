@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Linq;
 using Scriptes.Audio;
@@ -6,12 +7,14 @@ using Scriptes.Reels;
 using Scriptes.Symbol;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Scriptes.Game
 {
     public class GameBoard : MonoBehaviour
     {
+        public event Action StartSpinEvent;
+        public event Action StopSpinEvent;
+        
         [SerializeField] private int spinSpeed;
         [SerializeField] private float spinDuration;
         [SerializeField] private float trailSpeed = 5.0f;
@@ -19,7 +22,7 @@ namespace Scriptes.Game
         
         [SerializeField] private Reel[] reels;
         [SerializeField] private GameObject[] trails;
-        [SerializeField] private Button spinButton;
+
         [SerializeField] private TMP_Text score; 
 
         private int stoppedReelsCount = 0;
@@ -38,7 +41,7 @@ namespace Scriptes.Game
         {
             AudioManager.Instance.PlaySFX(AudioConst.ReelSpin);
             stoppedReelsCount = 0;
-            spinButton.interactable = false; 
+            StartSpinEvent?.Invoke();
             score.gameObject.SetActive(false); 
             
             ResetTrails();
@@ -57,19 +60,20 @@ namespace Scriptes.Game
             if (stoppedReelsCount == reels.Length)
             {
                 DisplayWinningLines();
-                spinButton.interactable = true; 
+                StopSpinEvent?.Invoke();    
             }
         }
 
         private void DisplayWinningLines()
         {
-            for (int i = 0; i < 3; i++) 
+            int totalScore = 0;
+
+            for (int i = 0; i < 3; i++)
             {
                 var symbols = reels.Select(reel => reel?.GetVisibleSymbols()?[i]).ToArray();
 
                 if (symbols.Contains(null))
                 {
-                    Debug.LogError("One or more symbols are null. Check Reel initialization.");
                     continue;
                 }
 
@@ -80,6 +84,7 @@ namespace Scriptes.Game
                 {
                     Debug.Log($"Winning line at row {i + 1} with symbols: {string.Join(", ", symbols.Skip(startIndex).Take(endIndex - startIndex + 1).Select(s => s.GetId()))}");
                     
+                    totalScore += lineScore;
                     
                     OnWin(lineScore, i, symbols, startIndex, endIndex);
                 }
